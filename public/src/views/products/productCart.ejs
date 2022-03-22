@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head', {title: 'Giỏ hàng'}) %>   <!--// partial Head //-->
+    <body>
+        
+        <%- include('../partials/header') %>   <!--// partial Header //-->
+
+        <main class="cart-mainbox">
+
+            <% if (cartItems && cartItems!="") { %>
+                <div>   <!--// Box grande //-->
+                    <h1 class="t-shadow">GIỎ HÀNG CỦA TÔI</h1>
+                    <section class="cart-boxtitle col-main">    <!--// Box intermedio //-->
+                    
+                        <div class="col-artic centrar">
+                            <p>Bài viết</p>
+                        </div>
+                        <div class="cart-boxsubtitle col-precio">
+                            <!-- <p>Color</p> -->
+                            <p>Talle</p>
+                            <p>Giá </p>
+                            <p>Số lượng</p>
+                            <p>Tổng</p>
+                            <p>Xóa</p>
+                        </div>
+
+                    </section>
+                    
+                    <section>   <!--// Box intermedio //-->
+                        <% let precioFinal = 0; %>
+                        <% let i=1; %>
+                        <% for (product of cartItems) { %>
+                            <div class="cart-boxartic col-main">   
+                                <article class="new-artic col-artic">
+                                    <img src="/img/products/<%= product.image %>" alt="Imagen del artículo" class="cart-img">
+                                    <div class="new-subartic">
+                                        <p class="name-size"><%= product.name %></p>
+                                        <br>
+                                        <p><%= product.description %></p>
+                                    </div>
+                                </article>
+                                
+                                <div class="cart-boxsubartic col-precio">
+                                   <!--  <div>
+                                        <p class="name-size"><%= product.color %></p>
+                                    </div> -->
+                                    
+                                    <div>   <!--// Talle //-->
+                                        <p class="name-size"><%= product.size %></p>
+                                    </div>
+                                   
+                                    <div>   <!--// Precio unitario // -->
+                                        
+                                        <% if (product.price != product.subtotal / product.quantity) { %>
+                                            <p class="name-size tachado">$ <%= product.price %></p>
+                                            <p class="name-size">$ <%= product.subtotal / product.quantity %></p>
+                                        <% } else { %>
+                                            <p class="name-size">$ <%= product.price %></p>
+                                        <% } %>
+                                    </div>
+                                    
+                                    <div>   <!--// Botones de cantidad (agregar su propio archivos Js)//-->
+                                        <span>
+                                            <!-- <span id='decrease' class="quantityButton" onclick="decrease()" style="co"><i class="far fa-minus-square"></i></span> -->
+                                            <input type='text' id="quantity" class="quantityValue button-trash" name="productsQuantity" value="<%= product.quantity %>" readonly>
+                                            <!-- <span id='increase' class="quantityButton" onclick="increase()"><i class="far fa-plus-square"></i></span> -->
+                                        </span>cc                                                 
+                                    </div>
+                                    
+                                    <div>   <!--// Precio //-->
+                                        <p class="total-size">$<%= product.subtotal %></p>
+                                    </div>
+
+                                    <div>
+                                        <form action="/carrito/<%=product.id%>/eliminar" method="POST"> 
+                                            <button type="submit" class="marg-nonside-10 button-trash"><i class="fas fa-trash-alt"></i></button> 
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <% precioFinal = precioFinal + product.subtotal; %>
+                            <% } %>                 
+                        </section>
+
+                    <section class="cart-boxbuy col-main padd-20">   <!--// Box intermedio //-->
+                        <div class="cart-formbox">
+                            <div class="flexi">
+                                <p class="name-size">Hàng</p>
+                                <% if ( precioFinal >= 6000) { %>
+                                    <p class="name-size">Miễn phí vận chuyển!</p>
+                                <% } else { %>  
+                                    <p class="name-size">$600</p>
+                                <% } %> 
+                            </div>
+                            <div class="flexi-button">
+                                <form>     
+                                    <div>
+                                        <input type="text" id="discountCode" name="discountCode" placeholder="Mã giảm giá" class="cart-form"><div class="popup" onclick="discountCode()"><input type="button" onclick="discountCode()" value="Áp dụng" class="cart-button popup">
+                                        <span class="popuptext" id="myPopupEmpty">Nhập mã giảm giá</span>
+                                        <span class="popuptext" id="myPopupBad">¡ Mã không chính xác !</span>
+                                        <span class="popuptext" id="myPopupGood">¡ Chúc mừng ! <img src="/img/toast.gif" alt="" style="padding: 0; width: 100%;"></span>
+                                        </div>
+                                    </div>
+                                    
+                                </form>
+                            </div>
+                            <div class="flexi">
+                                <p class="name-size">TỔNG</p>
+                                <% if ( precioFinal >= 6000) { %>
+                                    <p class="total-size" id="finalPrice">$ <%= precioFinal %> </p>
+                                <% } else { %>  
+                                    <p class="total-size" id="finalPrice">$ <%= precioFinal + 600 %></p>
+                                <% } %>
+                            </div>
+                            <div class="flexi-button">
+                                <div>
+                                    <form action="/carrito/finalizar-compra" method="POST">
+                                        <div><input type="submit" value="Hoàn tất mua hàng" class="cart-button"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div> 
+                    </section>
+                
+                </div>
+            <% } else { %>
+                <div>
+                    <div class="justify-center">
+                        <img src="/img/imag_empty-cart.png" alt="Carrito vacío" class="centrar width-40">
+                    </div>
+                    <h2 class="centrar padd-70"> Không có sản phẩm trong giỏ hàng </h2>
+                </div>
+            <% } %>
+        </main>
+        
+        <%- include('../partials/footer') %>   <!--// partial Footer //-->
+
+        <script src="/js/scripts.js" type="text/javascript"></script>
+
+    </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head', {title: 'Bộ sưu tập'}) %>   <!--// partial Head //-->
+    <body>
+        
+        <%- include('../partials/header') %>   <!--// partial Header //-->
+
+        <main class="d-flex fd-col">
+        
+            <h1 class="lk-title-list">NGƯỜI DÙNG</h1>
+
+            <h2 class="lk-title-list">Người quản lý</h2>
+            <div class="lk-mainbox-list" style="justify-content: center!important;">
+                <% for ( manager of manager) { %>
+                    <article class="lk-articlebox-list">
+                        <a href="/">
+                            <div class="justify-center opac-img">
+                                <img src="/img/users/<%= manager.image %>" alt="imagen de usuario">
+                            </div>
+                            <div class="casual-index">
+                                <p class="marg-0 name-size"><%= manager.first_name %> <%= manager.last_name %></p>
+                            </div>
+                            <div class="casual-index">
+                                <p class="font-roboto "><%= manager.email %></p>
+                            </div>
+                        </a>
+                    </article>
+                <% } %>
+            </div>
+
+            <div class="marg-nonside-50"></div>
+            <div class="marg-nonside-50"></div>
+
+            <h2 class="lk-title-list">quản trị viên</h2>
+            <div class="lk-mainbox-list">
+                <% for ( adminUser of adminUsers) { %>
+                    <article class="lk-articlebox-list">
+                        <a href="/">
+                            <div class="justify-center opac-img">
+                                <img src="/img/users/<%= adminUser.image %>" alt="imagen de usuario">
+                            </div>
+                            <div class="casual-index">
+                                <p class="marg-0 name-size"><%= adminUser.first_name %> <%= adminUser.last_name %></p>
+                            </div>
+                            <div class="casual-index">
+                                <p class="font-roboto "><%= adminUser.email %></p>
+                            </div>
+                        </a>
+                    </article>
+                <% } %>
+            </div>
+
+            <h2 class="lk-title-list">các nhà phát triển</h2>
+            <div class="lk-mainbox-list">
+                <% for ( developerUser of developerUsers) { %>
+                    <article class="lk-articlebox-list">
+                        <a href="/">
+                            <div class="justify-center opac-img">
+                                <img src="/img/users/<%= developerUser.image %>" alt="imagen de usuario">
+                            </div>
+                            <div class="casual-index">
+                                <p class="marg-0 name-size"><%= developerUser.first_name %> <%= developerUser.last_name %></p>
+                            </div>
+                            <div class="casual-index">
+                                <p class="font-roboto "><%= developerUser.email %></p>
+                            </div>
+                        </a>
+                    </article>
+                <% } %>
+            </div>
+
+            <h2 class="lk-title-list">Kiểm thử viên</h2>
+            <div class="lk-mainbox-list">
+                <% for ( testerUser of testerUsers) { %>
+                    <article class="lk-articlebox-list">
+                        <a href="/">
+                            <div class="justify-center opac-img">
+                                <img src="/img/users/<%= testerUser.image %>" alt="imagen de usuario">
+                            </div>
+                            <div class="casual-index">
+                                <p class="marg-0 name-size"><%= testerUser.first_name %> <%= testerUser.last_name %></p>
+                            </div>
+                            <div class="casual-index">
+                                <p class="font-roboto "><%= testerUser.email %></p>
+                            </div>
+                        </a>
+                    </article>
+                <% } %>
+            </div>
+            
+            <div class="marg-nonside-50"></div>
+
+            <h2 class="lk-title-list">Khách hàng</h2>
+            <div class="lk-mainbox-list">
+                <% for (clientUser of clientUsers) { %>
+                    <article class="lk-articlebox-list">
+                        <a href="/">
+                            <div class="justify-center opac-img">
+                                <img src="/img/users/<%= clientUser.image %>" alt="imagen de usuario">
+                            </div>
+                            <div class="casual-index">
+                                <p class="marg-0 name-size"><%= clientUser.first_name %> <%= clientUser.last_name %></p>
+                            </div>
+                            <div class="casual-index">
+                                <p class="font-roboto "><%= clientUser.email %></p>
+                            </div>
+                        </a>
+                    </article>
+                <% } %>
+            </div>
+            <div class="marg-nonside-50"></div>
+        </main>
+
+        <%- include('../partials/footer') %>   <!--// partial Footer //-->
+
+    </body>
+</html>
